@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { appRoutes } from './routes';
@@ -27,7 +28,9 @@ import { environment } from '../environments/environment';
     }),
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase, 'nearme-huzzah'),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [GetCurrentLocation],
   bootstrap: [AppComponent]

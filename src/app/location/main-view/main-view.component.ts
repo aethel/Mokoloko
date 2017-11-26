@@ -15,9 +15,9 @@ export class MainViewComponent implements OnInit {
   public zoom: number;
   items: Observable<any[]>;
   constructor(private locationService: GetCurrentLocation, db: AngularFirestore) {
-    this.items = db.collection('items').valueChanges();
-
+    this.items = db.collection(APPCONFIG.collection).valueChanges();
   }
+
   ngOnInit() {
     this.lat = APPCONFIG.defaultLat;
     this.lon = APPCONFIG.defaultLon;
@@ -33,13 +33,6 @@ export class MainViewComponent implements OnInit {
       this.lon = rep.coords.longitude;
       this.heading = rep.coords.heading;
     });
-
-    // if ('geolocation' in navigator) {
-    //   navigator.geolocation.getCurrentPosition(position => {
-    //     this.lat = position.coords.latitude;
-    //     this.lon = position.coords.longitude;
-    //     this.heading = position.coords.heading;
-    //   });
-    }
+     }
   }
 

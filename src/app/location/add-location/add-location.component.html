@@ -1,13 +1,22 @@
 <h1>Add Location</h1>
-<form action="">
-  <input type="text" placeholder="Name">
-  <div>geolocation</div>
-  <span>Tags</span>
-  <ul>
-    <li>tag</li>
-    <li>tag</li>
-    <li>tag</li>
-    <li>tag</li>
-  </ul>
-  <input type="text" placeholder="add tag">  
+<form autocomplete="off" [formGroup]="locationForm" (ngSubmit)="saveLocation(locationForm.value)">
+  <ol>
+    <li>
+      <label for="name">Name</label>
+      <input required formControlName="name" type="text" id="name" placeholder="Name">
+    </li>
+    <li>
+      <label for="address">Address</label>
+      <input required formControlName="address" type="text" id="address" placeholder="Address">
+    </li>
+    <li>
+      <label for="tags">Tags</label>
+      <input required formControlName="tags" type="text" id="tags" placeholder="Tags">
+    </li>
+    <li>
+      <label for="description">Description</label>
+      <input required formControlName="description" type="text" id="description" placeholder="Description">
+    </li>
+  </ol>
+  <button type="submit">Save</button>
 </form>
