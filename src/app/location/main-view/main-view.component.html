@@ -2,3 +2,5 @@
   <agm-marker [latitude]="lat" [longitude]="lon"></agm-marker>
 </agm-map>
 <button [routerLink]="['/add']">add</button>
+<p *ngFor="let item of items | async; let i=index">{{item.name}}, {{item.testField}}</p>
+

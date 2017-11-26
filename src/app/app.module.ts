@@ -8,7 +8,10 @@ import { AddLocationComponent } from './location/add-location/add-location.compo
 import { MainViewComponent } from './location/main-view/main-view.component';
 import { AgmCoreModule } from '@agm/core';
 import { GetCurrentLocation } from './global';
-
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { GetCurrentLocation } from './global';
     RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCoSccnNizGj_3_lCnvcy8jR2_-8BHlTdM'
-    })
+    }),
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebase, 'nearme-huzzah'),
+    AngularFireAuthModule
   ],
   providers: [GetCurrentLocation],
   bootstrap: [AppComponent]
