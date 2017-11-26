@@ -14,7 +14,7 @@ export class MainViewComponent implements OnInit {
   public heading: any;
   public zoom: number;
   items: Observable<any[]>;
-  constructor(private getLocation: GetCurrentLocation, db: AngularFirestore) {
+  constructor(private locationService: GetCurrentLocation, db: AngularFirestore) {
     this.items = db.collection('items').valueChanges();
 
   }
@@ -25,13 +25,21 @@ export class MainViewComponent implements OnInit {
     this.getCurrentPosition();
   }
 
+
   private getCurrentPosition() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.lat = position.coords.latitude;
-        this.lon = position.coords.longitude;
-        this.heading = position.coords.heading;
-      });
+    this.locationService.getLocation().subscribe(rep => {
+      console.log(rep);
+      this.lat = rep.coords.latitude;
+      this.lon = rep.coords.longitude;
+      this.heading = rep.coords.heading;
+    });
+
+    // if ('geolocation' in navigator) {
+    //   navigator.geolocation.getCurrentPosition(position => {
+    //     this.lat = position.coords.latitude;
+    //     this.lon = position.coords.longitude;
+    //     this.heading = position.coords.heading;
+    //   });
     }
   }
-}
+
