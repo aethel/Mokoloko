@@ -18,7 +18,7 @@ export class AddLocationComponent implements OnInit {
   public description: FormControl;
   private currentCoords: any;
   constructor(
-    db: AngularFirestore,
+    private db: AngularFirestore,
     private locationService: GetCurrentLocation
   ) {
     this.items = db.collection(APPCONFIG.collection).valueChanges();
@@ -45,10 +45,15 @@ export class AddLocationComponent implements OnInit {
     console.log(values);
     if (this.locationForm.valid) {
       console.log(values, this.locationForm.valid);
+      const place = this.locationForm.controls['name'].value;
+      this.db.collection(APPCONFIG.collection).doc(place).set(values)
+      .then(result => console.log('saved successfully'))
+      .catch(error => console.log(error));
     } else {
-      console.log(this.locationForm.errors, this.locationForm.valid);
+      console.log(this.locationForm.errors);
     }
   }
+  // TODO use native map object to reverse geocode coords into address
   private getCurrentCoords() {
     this.locationService
       .getLocation()
