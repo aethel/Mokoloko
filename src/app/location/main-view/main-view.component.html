@@ -1,6 +1,7 @@
 <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lon" [scrollwheel]="false">
   <agm-marker [latitude]="lat" [longitude]="lon"></agm-marker>
+  <agm-marker *ngFor="let item of items | async" [latitude]="item.latitude" [longitude]="item.longitude" [label]="item.name"></agm-marker>
 </agm-map>
 <button [routerLink]="['/add']">add</button>
-<p *ngFor="let item of items | async; let i=index">{{item.name}}, {{item.testField}}</p>
+<p *ngFor="let item of items | async; let i=index">{{item.name}}, {{item.address}}, {{item.description}}, {{item.longitude}}, {{item.latitude}}</p>
 

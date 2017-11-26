@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GetCurrentLocation, APPCONFIG} from '../../global/index';
 import {AngularFirestore} from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-main-view',
@@ -14,7 +14,10 @@ export class MainViewComponent implements OnInit {
   public heading: any;
   public zoom: number;
   items: Observable<any[]>;
-  constructor(private locationService: GetCurrentLocation, db: AngularFirestore) {
+  constructor(
+    private locationService: GetCurrentLocation,
+    private db: AngularFirestore
+  ) {
     this.items = db.collection(APPCONFIG.collection).valueChanges();
   }
 
@@ -25,7 +28,6 @@ export class MainViewComponent implements OnInit {
     this.getCurrentPosition();
   }
 
-
   private getCurrentPosition() {
     this.locationService.getLocation().subscribe(rep => {
       console.log(rep);
@@ -33,6 +35,5 @@ export class MainViewComponent implements OnInit {
       this.lon = rep.coords.longitude;
       this.heading = rep.coords.heading;
     });
-     }
   }
-
+}
