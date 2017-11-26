@@ -7,6 +7,8 @@ import { appRoutes } from './routes';
 import { AddLocationComponent } from './location/add-location/add-location.component';
 import { MainViewComponent } from './location/main-view/main-view.component';
 import { AgmCoreModule } from '@agm/core';
+import { GetCurrentLocation } from './global';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +23,7 @@ import { AgmCoreModule } from '@agm/core';
       apiKey: 'AIzaSyCoSccnNizGj_3_lCnvcy8jR2_-8BHlTdM'
     })
   ],
-  providers: [],
+  providers: [GetCurrentLocation],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
