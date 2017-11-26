@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GetCurrentLocation} from '../../global/index';
+import {GetCurrentLocation, APPCONFIG} from '../../global/index';
 import {AngularFirestore} from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 
@@ -19,10 +19,10 @@ export class MainViewComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.lat = 51.678418;
-    this.lon = 7.809007;
+    this.lat = APPCONFIG.defaultLat;
+    this.lon = APPCONFIG.defaultLon;
+    this.zoom = APPCONFIG.defaultZoom;
     this.getCurrentPosition();
-
   }
 
   private getCurrentPosition() {
@@ -31,9 +31,6 @@ export class MainViewComponent implements OnInit {
         this.lat = position.coords.latitude;
         this.lon = position.coords.longitude;
         this.heading = position.coords.heading;
-        this.zoom = 36;
-        console.log(this.heading);
-        console.log(this.zoom);
       });
     }
   }
