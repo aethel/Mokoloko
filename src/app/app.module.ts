@@ -15,6 +15,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { LoginComponent } from './location/login/login.component';
 import { AuthService } from './global/auth.service';
+import { LoginGuard } from './global/login.guard';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { AuthService } from './global/auth.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [GetCurrentLocation, AuthService],
+  providers: [GetCurrentLocation, AuthService, LoginGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
