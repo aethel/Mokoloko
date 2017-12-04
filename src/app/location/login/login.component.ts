@@ -10,12 +10,12 @@ import {AuthService} from '../../global/auth.service';
 export class LoginComponent {
   public email: string;
   public password: string;
-  constructor(public authService: AuthService, private route: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
-  login() {
-    this.authService.signInWithEmail(this.email, this.password);
+  async login() {
+    await this.authService.signInWithEmail(this.email, this.password);
     this.email = this.password = '';
-    console.log(this.authService.user);
+    this.router.navigate(['mainView']);
   }
 
 }

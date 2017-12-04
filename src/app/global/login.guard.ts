@@ -9,11 +9,7 @@ export class LoginGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-
-      const userIn = 'in';
-      this.authService.user.subscribe(async res => await console.log(res, 'AKAK'));
-      // if (this.authService.user. === userIn) {
-        return false;
-      // }
+      console.log(this.authService.user);
+    return true;
   }
 }
