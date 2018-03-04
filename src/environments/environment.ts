@@ -6,11 +6,11 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyDkFUk8by5wUvrVoQxg6VxW9WdOs3zSczo',
-    authDomain: 'nearme-huzzah.firebaseapp.com',
-    databaseURL: 'https://nearme-huzzah.firebaseio.com',
-    projectId: 'nearme-huzzah',
-    storageBucket: 'nearme-huzzah.appspot.com',
-    messagingSenderId: '749461070323'
+    apiKey: "AIzaSyDJspbcFfj6jmuEFaSi8O5HvbZg9uY6brA",
+    authDomain: "nearme-app-huzzah.firebaseapp.com",
+    databaseURL: "https://nearme-app-huzzah.firebaseio.com",
+    projectId: "nearme-app-huzzah",
+    storageBucket: "",
+    messagingSenderId: "88016961272"
   }
 };

@@ -13,8 +13,8 @@ export class LoginComponent {
   constructor(public authService: AuthService, private router: Router) {}
 
   async login() {
-    await this.authService.signInWithEmail(this.email, this.password);
-    this.email = this.password = '';
+    // await this.authService.signInWithEmail(this.email, this.password);
+    // this.email = this.password = '';
     this.router.navigate(['mainView']);
   }
 

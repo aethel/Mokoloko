@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
 import {GetCurrentLocation, APPCONFIG, Location} from '../../global/index';
@@ -21,7 +22,8 @@ export class AddLocationComponent implements OnInit {
 
   constructor(
     private db: AngularFirestore,
-    private locationService: GetCurrentLocation
+    private locationService: GetCurrentLocation,
+    private router: Router
   ) {
     this.items = db.collection(APPCONFIG.collection).valueChanges();
   }
@@ -50,12 +52,15 @@ export class AddLocationComponent implements OnInit {
     if (this.locationForm.valid) {
       console.log(values, this.locationForm.valid);
       const place = this.locationForm.controls['name'].value;
+      console.log(this.db.collection);
       this.db
         .collection(APPCONFIG.collection)
         .doc(place)
         .set(values)
         .then(result => console.log('saved successfully'))
         .catch(error => console.log(error));
+
+        this.router.navigate(['mainView']);
     } else {
       console.log(this.locationForm.errors);
     }

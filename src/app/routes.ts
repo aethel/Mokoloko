@@ -5,9 +5,9 @@ import { LoginComponent } from './location/login/login.component';
 import { LoginGuard } from './global/login.guard';
 
 export const AppRoutes: Routes = [
-    {path: 'mainView', component: MainViewComponent, canActivate: [LoginGuard] },
+    // {path: 'mainView', component: MainViewComponent, canActivate: [LoginGuard] },
+    {path: 'mainView', component: MainViewComponent },
     {path: 'login', component: LoginComponent},
     {path: 'add', component: AddLocationComponent},
     {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
-
