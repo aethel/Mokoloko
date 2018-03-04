@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {Router} from '@angular/router';
 import {AuthService} from '../../global/auth.service';
 
 @Component({
@@ -10,12 +9,11 @@ import {AuthService} from '../../global/auth.service';
 export class LoginComponent {
   public email: string;
   public password: string;
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService) {}
 
-  async login() {
-    // await this.authService.signInWithEmail(this.email, this.password);
-    // this.email = this.password = '';
-    this.router.navigate(['mainView']);
+  login() {
+    this.authService.signInWithEmail(this.email, this.password);
+    this.email = this.password = '';
   }
 
 }

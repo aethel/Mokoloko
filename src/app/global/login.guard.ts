@@ -6,9 +6,7 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class LoginGuard implements CanActivate {
   constructor(private authService: AuthService) {}
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+  canActivate(): Observable<boolean> | Promise<boolean> | boolean {
       console.log(this.authService.user);
     return true;
   }

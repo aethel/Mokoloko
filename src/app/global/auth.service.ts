@@ -15,8 +15,9 @@ export class AuthService {
     this.firebaseAuth
     .auth
     .signInWithEmailAndPassword(email, pass)
-    .then(val => console.log(val, 'in'))
+    .then(val => this.router.navigate(['mainView']))
     .catch(err => console.log(err));
+    // TODO add error page
   }
 
   public signUp(email: string, pass: string) {
@@ -28,8 +29,10 @@ export class AuthService {
   }
 
   public logout() {
+    console.log('logout');
     this.firebaseAuth
     .auth
-    .signOut();
+    .signOut().then(val => this.router.navigate(['login']));
+
   }
 }
