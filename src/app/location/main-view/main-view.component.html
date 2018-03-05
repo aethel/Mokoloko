@@ -6,4 +6,8 @@
   </agm-marker>
 </agm-map>
 <button [routerLink]="['/add']">add</button>
-<p *ngFor="let item of items | async; let i=index">{{item.name}}, {{item.address}}, {{item.description}}, {{item.longitude}}, {{item.latitude}}</p>
+<ul>
+  <li *ngFor="let item of items | async; let i=index">
+    <p>{{item.name}}, {{item.address}}, {{item.description}}, {{item.longitude}}, {{item.latitude}}</p>
+  </li>
+</ul>

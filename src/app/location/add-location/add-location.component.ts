@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/debounceTime';
 import {GetCurrentLocation, APPCONFIG, Location} from '../../global/index';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 @Component({
@@ -10,6 +11,7 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
   styleUrls: ['./add-location.component.css'],
 })
 export class AddLocationComponent implements OnInit {
+  // TODO add interface
   items: Observable<any[]>;
   public locationForm: FormGroup;
   public latitude: FormControl;
@@ -28,6 +30,7 @@ export class AddLocationComponent implements OnInit {
     this.items = db.collection(APPCONFIG.collection).valueChanges();
   }
 
+
   ngOnInit() {
     this.getCurrentCoords();
     this.latitude = new FormControl('', Validators.required);
@@ -45,26 +48,33 @@ export class AddLocationComponent implements OnInit {
       description: this.description,
       tags: this.tags,
     });
+
+    this.locationForm.controls['tags'].valueChanges.debounceTime(1000).subscribe(res => this.deserialiseTags(res));
   }
 
-  public saveLocation(values) {
-    console.log(values);
+
+  public async saveLocation(values) {
     if (this.locationForm.valid) {
-      console.log(values, this.locationForm.valid);
       const place = this.locationForm.controls['name'].value;
-      console.log(this.db.collection);
+      const tagsArr = this.locationForm.controls['tags'].value.split(',');
+      this.locationForm.controls['tags'].setValue(tagsArr);
+
       this.db
         .collection(APPCONFIG.collection)
         .doc(place)
         .set(values)
         .then(result => console.log('saved successfully'))
         .catch(error => console.log(error));
-
         this.router.navigate(['mainView']);
     } else {
       console.log(this.locationForm.errors);
     }
   }
+//TODO add tags input valdiation
+  private deserialiseTags (tags: string): string[] {
+    return tags.split(',');
+  }
+
   // TODO use native map object to reverse geocode coords into address
   private getCurrentCoords() {
     this.locationService.getLocation().subscribe(res => {
