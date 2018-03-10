@@ -6,8 +6,13 @@
   </agm-marker>
 </agm-map>
 <button [routerLink]="['/add']">add</button>
+<input type="text" [(ngModel)]="tagFilter" />
 <ul>
-  <li *ngFor="let item of items | async; let i=index">
-    <p>{{item.name}}, {{item.address}}, {{item.description}}, {{item.longitude}}, {{item.latitude}}</p>
+  <li *ngFor="let item of items | async | filter: tagFilter">
+    <div>{{item.name}}, {{item.address}}, {{item.description}}, {{item.longitude}}, {{item.latitude}}
+      <button *ngFor="let tag of item?.tags; trackBy: trackByFn ">
+        {{tag}}
+      </button>
+    </div>
   </li>
 </ul>

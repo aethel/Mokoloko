@@ -8,20 +8,20 @@ import { AppRoutes } from './routes';
 import { AddLocationComponent } from './location/add-location/add-location.component';
 import { MainViewComponent } from './location/main-view/main-view.component';
 import { AgmCoreModule } from '@agm/core';
-import { GetCurrentLocation } from './global';
+import { GetCurrentLocation, FilterPipe, AuthService } from './global';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { LoginComponent } from './location/login/login.component';
-import { AuthService } from './global/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddLocationComponent,
     MainViewComponent,
-    LoginComponent
+    LoginComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

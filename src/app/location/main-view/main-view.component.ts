@@ -14,6 +14,7 @@ export class MainViewComponent implements OnInit {
   public lon: number;
   public heading: any;
   public zoom: number;
+  public tagFilter: string;
   items: Observable<any[]>;
   // TODO add location interface
   constructor(
@@ -43,4 +44,13 @@ export class MainViewComponent implements OnInit {
   public logout() {
     this.authService.logout();
   }
+
+  public trackByFn (index,item){
+    return index;
+  }
+  //
+  // public filterResults (event) {
+  //   console.log(event.target.value);
+  //   console.log('sdf', this.tagFilter);
+  // }
 }

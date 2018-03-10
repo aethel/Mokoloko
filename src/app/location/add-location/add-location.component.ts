@@ -49,31 +49,32 @@ export class AddLocationComponent implements OnInit {
       tags: this.tags,
     });
 
-    this.locationForm.controls['tags'].valueChanges.debounceTime(1000).subscribe(res => this.deserialiseTags(res));
+    // this.locationForm.controls['tags'].valueChanges.debounceTime(1000).subscribe(res => this.deserialiseTags(res));
   }
 
 
   public async saveLocation(values) {
     if (this.locationForm.valid) {
       const place = this.locationForm.controls['name'].value;
-      const tagsArr = this.locationForm.controls['tags'].value.split(',');
-      this.locationForm.controls['tags'].setValue(tagsArr);
+      values.tags = this.locationForm.controls['tags'].value.split(',');
 
       this.db
         .collection(APPCONFIG.collection)
         .doc(place)
         .set(values)
-        .then(result => console.log('saved successfully'))
+        .then(result => {
+          console.log('saved successfully')
+          this.router.navigate(['mainView']);
+        })
         .catch(error => console.log(error));
-        this.router.navigate(['mainView']);
     } else {
       console.log(this.locationForm.errors);
     }
   }
 //TODO add tags input valdiation
-  private deserialiseTags (tags: string): string[] {
-    return tags.split(',');
-  }
+  // private deserialiseTags (tags: string): string[] {
+  //   return tags.split(',');
+  // }
 
   // TODO use native map object to reverse geocode coords into address
   private getCurrentCoords() {
