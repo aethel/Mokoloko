@@ -1,9 +1,11 @@
 <button (click)="logout()" >Logout</button>
+<button *ngIf="directions" (click)="clearDirections()">CLEAR NAV</button>
 <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lon" [scrollwheel]="false">
   <agm-marker [latitude]="lat" [longitude]="lon"></agm-marker>
   <agm-marker *ngFor="let item of items | async" [latitude]="item.latitude" [longitude]="item.longitude">
     <agm-info-window>{{item.name}}</agm-info-window>
   </agm-marker>
+  <agm-direction  *ngIf="directions" [origin]="directions.origin" [destination]="directions.destination" [travelMode]="travelMode"></agm-direction>
 </agm-map>
 <button [routerLink]="['/add']">add</button>
 <label>Filter
@@ -15,6 +17,7 @@
       <button *ngFor="let tag of item?.tags; trackBy: trackByFn ">
         {{tag}}
       </button>
+      <button (click)="getDirections(item.longitude,item.latitude)">GO</button>clearDirections
     </div>
   </li>
 </ul>

@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {GetCurrentLocation, APPCONFIG} from '../../global/index';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {GetCurrentLocation, APPCONFIG} from '../../global';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from '../../global/auth.service';
@@ -7,14 +7,16 @@ import {AuthService} from '../../global/auth.service';
 @Component({
   selector: 'app-main-view',
   templateUrl: './main-view.component.html',
-  styleUrls: ['./main-view.component.css'],
+  styleUrls: ['./main-view.component.css']
 })
-export class MainViewComponent implements OnInit {
+export class MainViewComponent implements OnInit, OnDestroy {
   public lat: number;
   public lon: number;
   public heading: any;
   public zoom: number;
   public tagFilter: string;
+  public directions = undefined;
+  public travelMode: string;
   items: Observable<any[]>;
   // TODO add location interface
   constructor(
@@ -29,6 +31,7 @@ export class MainViewComponent implements OnInit {
     this.lat = APPCONFIG.defaultLat;
     this.lon = APPCONFIG.defaultLon;
     this.zoom = APPCONFIG.defaultZoom;
+    this.travelMode = APPCONFIG.travelMode;
     this.getCurrentPosition();
   }
 
@@ -39,6 +42,7 @@ export class MainViewComponent implements OnInit {
       this.lon = rep.coords.longitude;
       this.heading = rep.coords.heading;
     });
+    //unsubscribe
   }
 
   public logout() {
@@ -48,9 +52,26 @@ export class MainViewComponent implements OnInit {
   public trackByFn (index,item){
     return index;
   }
-  //
-  // public filterResults (event) {
-  //   console.log(event.target.value);
-  //   console.log('sdf', this.tagFilter);
-  // }
+
+  public  getDirections (...target) {
+    let [targLon, targLat] = target;
+    this.directions = {
+      origin: {
+        lat: this.lat,
+        lng: this.lon
+      },
+      destination: {
+        lat: targLat,
+        lng: targLon
+      }
+    }
+  }
+
+  public clearDirections() {
+    this.directions = undefined;
+  }
+
+  ngOnDestroy(){
+    console.log('destroying');
+  }
 }

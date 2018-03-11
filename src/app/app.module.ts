@@ -8,6 +8,7 @@ import { AppRoutes } from './routes';
 import { AddLocationComponent } from './location/add-location/add-location.component';
 import { MainViewComponent } from './location/main-view/main-view.component';
 import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
 import { GetCurrentLocation, FilterPipe, AuthService } from './global';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -33,7 +34,8 @@ import { LoginComponent } from './location/login/login.component';
     AngularFireModule.initializeApp(environment.firebase, 'nearme-huzzah'),
     AngularFireAuthModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgmDirectionModule
   ],
   providers: [GetCurrentLocation, AuthService],
   bootstrap: [AppComponent]
