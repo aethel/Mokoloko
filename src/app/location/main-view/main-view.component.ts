@@ -17,6 +17,7 @@ export class MainViewComponent implements OnInit, OnDestroy {
   public tagFilter: string;
   public directions = undefined;
   public travelMode: string;
+  public show: boolean;
   items: Observable<any[]>;
   // TODO add location interface
   constructor(
@@ -54,6 +55,7 @@ export class MainViewComponent implements OnInit, OnDestroy {
   }
 
   public  getDirections (...target) {
+    this.show = true;
     let [targLon, targLat] = target;
     this.directions = {
       origin: {
@@ -67,8 +69,8 @@ export class MainViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  public clearDirections() {
-    this.directions = undefined;
+  public hideDirections() {
+    this.show = false;
   }
 
   ngOnDestroy(){
