@@ -1,10 +1,10 @@
-import {Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {Observable} from 'rxjs/Observable';
-import {GetCurrentLocation, APPCONFIG } from '../../global';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {Coordinates, Location} from '../../global/models'
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
+import { GetCurrentLocation, APPCONFIG } from '../../global';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Coordinates, Location } from '../../global/models'
 
 @Component({
   selector: 'app-add-location',
@@ -70,14 +70,14 @@ export class AddLocationComponent implements OnInit {
       console.log(this.locationForm.errors);
     }
   }
-//TODO add tags input valdiation
+  //TODO add tags input valdiation
   // private deserialiseTags (tags: string): string[] {
   //   return tags.split(',');
   // }
 
   // TODO use native map object to reverse geocode coords into address
   private setCurrentCoords() {
-    this.locationService.getLocation().subscribe(res  => {
+    this.locationService.getLocation().subscribe(res => {
       this.locationForm.controls['latitude'].setValue(res.coords.latitude);
       this.locationForm.controls['longitude'].setValue(res.coords.longitude);
     });

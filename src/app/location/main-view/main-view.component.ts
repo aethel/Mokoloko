@@ -21,6 +21,7 @@ export class MainViewComponent implements OnInit, OnDestroy {
   public travelMode: string;
   public show: boolean;
   items: Observable<any[]>;
+
   // TODO add location interface
   constructor(
     private locationService: GetCurrentLocation,

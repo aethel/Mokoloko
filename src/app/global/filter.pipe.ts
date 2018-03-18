@@ -12,7 +12,8 @@ export class FilterPipe implements PipeTransform {
     searchText = searchText.toLowerCase();
 
     return items.filter(it => {
-      return it.tags.includes(searchText);
+      const test = it.tags.join(',');
+      return test.includes(searchText);
     });
   }
 }
