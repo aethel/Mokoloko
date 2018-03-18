@@ -2,9 +2,10 @@ import {Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/debounceTime';
-import {GetCurrentLocation, APPCONFIG, Location} from '../../global/index';
+import {GetCurrentLocation, APPCONFIG } from '../../global';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {Coordinates, Location} from '../../global/models'
+
 @Component({
   selector: 'app-add-location',
   templateUrl: './add-location.component.html',
@@ -20,7 +21,7 @@ export class AddLocationComponent implements OnInit {
   public tags: FormControl;
   public address: FormControl;
   public description: FormControl;
-  private currentCoords: any;
+  private currentCoords: Coordinates;
 
   constructor(
     private db: AngularFirestore,
@@ -32,7 +33,7 @@ export class AddLocationComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getCurrentCoords();
+    this.setCurrentCoords();
     this.latitude = new FormControl('', Validators.required);
     this.longitude = new FormControl('', Validators.required);
     this.name = new FormControl('', Validators.required);
@@ -46,14 +47,12 @@ export class AddLocationComponent implements OnInit {
       name: this.name,
       address: this.address,
       description: this.description,
-      tags: this.tags,
+      tags: this.tags
     });
-
-    // this.locationForm.controls['tags'].valueChanges.debounceTime(1000).subscribe(res => this.deserialiseTags(res));
   }
 
 
-  public async saveLocation(values) {
+  public async saveLocation(values: Location) {
     if (this.locationForm.valid) {
       const place = this.locationForm.controls['name'].value;
       values.tags = this.locationForm.controls['tags'].value.split(',');
@@ -77,8 +76,8 @@ export class AddLocationComponent implements OnInit {
   // }
 
   // TODO use native map object to reverse geocode coords into address
-  private getCurrentCoords() {
-    this.locationService.getLocation().subscribe(res => {
+  private setCurrentCoords() {
+    this.locationService.getLocation().subscribe(res  => {
       this.locationForm.controls['latitude'].setValue(res.coords.latitude);
       this.locationForm.controls['longitude'].setValue(res.coords.longitude);
     });

@@ -3,12 +3,14 @@ import {GetCurrentLocation, APPCONFIG} from '../../global';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from '../../global/auth.service';
+import {Coordinates, Location} from '../../global/models'
 
 @Component({
   selector: 'app-main-view',
   templateUrl: './main-view.component.html',
   styleUrls: ['./main-view.component.css']
 })
+
 export class MainViewComponent implements OnInit, OnDestroy {
   public lat: number;
   public lon: number;

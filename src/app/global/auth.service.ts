@@ -33,6 +33,5 @@ export class AuthService {
     this.firebaseAuth
     .auth
     .signOut().then(val => this.router.navigate(['login']));
-
   }
 }
