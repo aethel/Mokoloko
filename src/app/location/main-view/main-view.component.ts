@@ -3,7 +3,7 @@ import {GetCurrentLocation, APPCONFIG} from '../../global';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from '../../global/auth.service';
-import {Coordinates, Location} from '../../global/models'
+import {Coordinates, Location} from '../../global/models';
 
 @Component({
   selector: 'app-main-view',
@@ -12,17 +12,18 @@ import {Coordinates, Location} from '../../global/models'
 })
 
 export class MainViewComponent implements OnInit, OnDestroy {
+  private currentLat: number;
+  private currentLon: number;
   public lat: number;
-  public lon: number;
+  public lng: number;
   public heading: any;
   public zoom: number;
   public tagFilter: string;
   public directions = undefined;
   public travelMode: string;
-  public show: boolean;
+  public show = false;
   items: Observable<any[]>;
 
-  // TODO add location interface
   constructor(
     private locationService: GetCurrentLocation,
     private db: AngularFirestore,
@@ -31,52 +32,65 @@ export class MainViewComponent implements OnInit, OnDestroy {
     this.items = db.collection(APPCONFIG.collection).valueChanges();
   }
 
-  ngOnInit() {
-    this.lat = APPCONFIG.defaultLat;
-    this.lon = APPCONFIG.defaultLon;
+  async ngOnInit() {
+    this.currentLat = APPCONFIG.defaultLat;
+    this.currentLon = APPCONFIG.defaultLon;
     this.zoom = APPCONFIG.defaultZoom;
     this.travelMode = APPCONFIG.travelMode;
-    this.getCurrentPosition();
-  }
-
-  private getCurrentPosition() {
-    this.locationService.getLocation().subscribe(rep => {
-      console.log(rep);
-      this.lat = rep.coords.latitude;
-      this.lon = rep.coords.longitude;
-      this.heading = rep.coords.heading;
+    this.getCurrentPosition().then(rep => {
+      this.currentLat = rep.coords.latitude;
+      this.currentLon = rep.coords.longitude;
+      this.setLocation(this.currentLat, this.currentLon);
     });
-    //unsubscribe
   }
 
-  public logout() {
+  private  getCurrentPosition(): Promise<any> {
+   return this.locationService.getLocation().toPromise();
+  }
+
+  private setLocation (lat: number, lng: number) {
+    this.lat = lat;
+    this.lng = lng;
+  }
+
+  public logout(): void {
     this.authService.logout();
   }
 
-  public trackByFn (index,item){
+  public trackByFn (index, item): number {
     return index;
   }
 
-  public  getDirections (...target) {
-    this.show = true;
-    let [targLon, targLat] = target;
+  private toggleShow (): void {
+    this.show = !this.show;
+  }
+
+  public setDirections (...target) {
+    const [targetLon, targetLat] = target;
     this.directions = {
       origin: {
-        lat: this.lat,
-        lng: this.lon
+        lat: this.currentLat,
+        lng: this.currentLon
       },
       destination: {
-        lat: targLat,
-        lng: targLon
+        lat: targetLat,
+        lng: targetLon
       }
-    }
+    };
+    this.toggleShow();
   }
 
   public hideDirections() {
-    this.show = false;
+    this.setLocation(this.currentLat, this.currentLon);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     console.log('destroying');
   }
+}
+
+interface ILocation {
+  lat: number;
+  lng: number;
+  head?: number;
 }

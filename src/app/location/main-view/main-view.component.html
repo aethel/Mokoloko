@@ -19,10 +19,10 @@
     <div class="box">
       <agm-map [latitude]="lat"
                [zoom]="zoom"
-               [longitude]="lon"
+               [longitude]="lng"
                [scrollwheel]="false">
         <agm-marker [latitude]="lat"
-                    [longitude]="lon"></agm-marker>
+                    [longitude]="lng"></agm-marker>
         <agm-marker *ngFor="let item of items | async"
                     [latitude]="item.latitude"
                     [longitude]="item.longitude">
@@ -37,12 +37,17 @@
 
     </div>
     <div class="box">
-      <input type="text"
-             class="input block"
-             placeholder="Filter"
-             [(ngModel)]="tagFilter" />
-      <ul class="content">
-        <li *ngFor="let item of items | async | filter: tagFilter">
+      <div class="control has-icons-right">
+        <input type="text"
+               class="input block"
+               placeholder="Filter"
+               [(ngModel)]="tagFilter" />
+               <span class="icon is-small is-right">
+                  <i class="fas fa-user"></i>
+                </span>
+      </div>
+      <ul class="content columns">
+        <li class="column" *ngFor="let item of items | async | filter: tagFilter">
           <div class="card">
             <header class="card-header">
               <h2 class="card-header-title">{{item.name}}</h2>
@@ -60,7 +65,7 @@
                   {{tag}}
                 </button>
               </div>
-              <button (click)="getDirections(item.longitude,item.latitude)"
+              <button (click)="setDirections(item.longitude,item.latitude)"
                       class="button is-link">Go</button>
             </div>
           </div>
