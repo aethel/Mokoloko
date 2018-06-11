@@ -1,25 +1,27 @@
 <section class="section">
-  <h1 class="title">Add Location</h1>
-  <form autocomplete="off" [formGroup]="locationForm" (ngSubmit)="saveLocation(locationForm.value)">
-    <ol>
-      <li>
-        <label for="name">Name</label>
-        <input required formControlName="name" type="text" id="name" placeholder="Name">
+  <header>
+    <h1 class="title">Add Location</h1>
+  </header>
+  <form autocomplete="off" [formGroup]="locationForm" (ngSubmit)="saveLocation(locationForm.value)" class="content">
+    <ol class="block">
+      <li class="field">
+        <label class="label" for="name">Name</label>
+        <input class="input" required formControlName="name" type="text" id="name" placeholder="Name">
       </li>
-      <li>
-        <label for="address">Address</label>
-        <input required formControlName="address" type="text" id="address" placeholder="Address">
+      <li class="field">
+        <label class="label" for="address">Address</label>
+        <input class="input" required formControlName="address" type="text" id="address" placeholder="Address">
       </li>
-      <li>
-        <label for="tags">Tags</label>
-        <input required formControlName="tags" type="text" id="tags" placeholder="Tags">
+      <li class="field">
+        <label class="label" for="tags">Tags</label>
+        <input class="input" required formControlName="tags" type="text" id="tags" placeholder="Tags">
       </li>
-      <li>
-        <label for="description">Description</label>
-        <input required formControlName="description" type="text" id="description" placeholder="Description">
+      <li class="field">
+        <label class="label" for="description">Description</label>
+        <input class="input" required formControlName="description" type="text" id="description" placeholder="Description">
       </li>
     </ol>
-    <button type="submit">Save</button>
+    <button class="button is-link" type="submit">Save</button>
   </form>
 
 </section>
