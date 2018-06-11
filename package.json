@@ -24,6 +24,7 @@
     "@angular/router": "^5.0.5",
     "agm-direction": "^0.3.7",
     "angularfire2": "^5.0.0-rc.4",
+    "bulma": "^0.7.1",
     "core-js": "^2.4.1",
     "firebase": "^4.6.2",
     "rxjs": "^5.5.4",
