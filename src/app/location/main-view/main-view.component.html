@@ -1,23 +1,71 @@
-<button (click)="logout()" >Logout</button>
-<button *ngIf="directions" (click)="hideDirections()">CLEAR NAV</button>
-<agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lon" [scrollwheel]="false">
-  <agm-marker [latitude]="lat" [longitude]="lon"></agm-marker>
-  <agm-marker *ngFor="let item of items | async" [latitude]="item.latitude" [longitude]="item.longitude">
-    <agm-info-window>{{item.name}}</agm-info-window>
-  </agm-marker>
-  <agm-direction [visible]="show" *ngIf="directions" [origin]="directions.origin" [destination]="directions.destination" [travelMode]="travelMode"></agm-direction>
-</agm-map>
-<button [routerLink]="['/add']">add</button>
-<label>Filter
-  <input type="text" [(ngModel)]="tagFilter" />
-</label>
-<ul>
-  <li *ngFor="let item of items | async | filter: tagFilter">
-    <div>{{item.name}}, {{item.address}}, {{item.description}}, {{item.longitude}}, {{item.latitude}}
-      <button *ngFor="let tag of item?.tags; trackBy: trackByFn ">
-        {{tag}}
-      </button>
-      <button (click)="getDirections(item.longitude,item.latitude)">GO</button>
+<section class="section">
+  <div class="cointainer">
+    <header class="content">
+      <h1 class="title">Near Me</h1>
+    </header>
+    <nav class="navbar"
+         role="navigation"
+         aria-label="main navigation">
+      <div class="navbar-brand level">
+        <button (click)="logout()"
+                class="button is-danger level-left">Log Out</button>
+        <button *ngIf="directions"
+                (click)="hideDirections()"
+                class="button is-warning level-right">Clear Nav</button>
+        <button [routerLink]="['/add']"
+                class="button is-link">Add</button>
+      </div>
+    </nav>
+    <div class="box">
+      <agm-map [latitude]="lat"
+               [zoom]="zoom"
+               [longitude]="lon"
+               [scrollwheel]="false">
+        <agm-marker [latitude]="lat"
+                    [longitude]="lon"></agm-marker>
+        <agm-marker *ngFor="let item of items | async"
+                    [latitude]="item.latitude"
+                    [longitude]="item.longitude">
+          <agm-info-window>{{item.name}}</agm-info-window>
+        </agm-marker>
+        <agm-direction [visible]="show"
+                       *ngIf="directions"
+                       [origin]="directions.origin"
+                       [destination]="directions.destination"
+                       [travelMode]="travelMode"></agm-direction>
+      </agm-map>
+
     </div>
-  </li>
-</ul>
+    <div class="box">
+      <input type="text"
+             class="input block"
+             placeholder="Filter"
+             [(ngModel)]="tagFilter" />
+      <ul class="content">
+        <li *ngFor="let item of items | async | filter: tagFilter">
+          <div class="card">
+            <header class="card-header">
+              <h2 class="card-header-title">{{item.name}}</h2>
+            </header>
+            <div class="card-content">
+              <p>
+                {{item.address}}
+              </p>
+              <p>
+                {{item.description}}
+              </p>
+              <div class="tags">
+                <button *ngFor="let tag of item?.tags; trackBy: trackByFn "
+                        class="tag is-info">
+                  {{tag}}
+                </button>
+              </div>
+              <button (click)="getDirections(item.longitude,item.latitude)"
+                      class="button is-link">Go</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
