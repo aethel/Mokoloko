@@ -13,6 +13,28 @@ describe('MainViewComponent', () => {
     .compileComponents();
   }));
 
+  const initialDirections = {
+    origin: {
+      lat: 1,
+      lng: 2
+    },
+    destination: {
+      lat: 3,
+      lng: 4
+    }
+  };
+
+  const newDirections = {
+    origin: {
+      lat: 1,
+      lng: 2
+    },
+    destination: {
+      lat: 5,
+      lng: 6
+    }
+  };
+
   beforeEach(() => {
     fixture = TestBed.createComponent(MainViewComponent);
     component = fixture.componentInstance;
@@ -21,5 +43,13 @@ describe('MainViewComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set navigation directions', () => {
+    expect(component.setDirections(5, 6)).toEqual(newDirections);
+
+  });
+
+  it('should centre map and zoom in to default level', () => {
   });
 });

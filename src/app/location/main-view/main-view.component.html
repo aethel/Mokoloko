@@ -18,7 +18,6 @@
     </nav>
     <div class="box">
       <agm-map [latitude]="lat"
-              [usePanning]="true"
                [zoom]="zoom"
                [longitude]="lng"
                [scrollwheel]="false">
@@ -29,8 +28,8 @@
                     [longitude]="item.longitude">
           <agm-info-window>{{item.name}}</agm-info-window>
         </agm-marker>
-        <agm-direction [visible]="show"
-                       *ngIf="directions"
+        <agm-direction *ngIf="directions"
+                       [visible]="show"
                        [origin]="directions.origin"
                        [destination]="directions.destination"
                        [travelMode]="travelMode"></agm-direction>
@@ -43,12 +42,13 @@
                class="input block"
                placeholder="Filter"
                [(ngModel)]="tagFilter" />
-               <span class="icon is-small is-right">
-                  <i class="fas fa-user"></i>
-                </span>
+        <span class="icon is-small is-right">
+          <i class="fas fa-user"></i>
+        </span>
       </div>
       <ul class="content columns">
-        <li class="column" *ngFor="let item of items | async | filter: tagFilter">
+        <li class="column"
+            *ngFor="let item of items | async | filter: tagFilter">
           <div class="card">
             <header class="card-header">
               <h2 class="card-header-title">{{item.name}}</h2>

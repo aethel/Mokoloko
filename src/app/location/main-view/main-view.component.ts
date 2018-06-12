@@ -79,7 +79,6 @@ export class MainViewComponent implements OnInit, OnDestroy {
         lng: targetLon
       }
     };
-    console.log(this.zoom);
     this.toggleShow();
   }
 
