@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild, Inject} from '@angular/core';
 import {GetCurrentLocation, APPCONFIG} from '../../global';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
@@ -29,7 +29,8 @@ export class MainViewComponent implements OnInit, OnDestroy {
   constructor(
     private locationService: GetCurrentLocation,
     private db: AngularFirestore,
-    private authService: AuthService
+    private authService: AuthService,
+    @Inject('WINDOW') private window: any
   ) {
     this.items = this.db.collection(APPCONFIG.collection).valueChanges();
   }
@@ -80,6 +81,7 @@ export class MainViewComponent implements OnInit, OnDestroy {
       }
     };
     this.toggleShow();
+    this.scrollTo();
   }
 
   public hideDirections() {
@@ -90,7 +92,15 @@ export class MainViewComponent implements OnInit, OnDestroy {
     });
   }
 
+  private scrollTo ({top = 180, behavior = 'smooth'} = {}) {
+    this.window.scrollTo({
+      top,
+      behavior
+    });
+  }
+
   ngOnDestroy() {
     console.log('destroying');
   }
 }
+

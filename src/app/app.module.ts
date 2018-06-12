@@ -1,20 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { AppComponent } from './app.component';
-import { AppRoutes } from './routes';
-import { AddLocationComponent } from './location/add-location/add-location.component';
-import { MainViewComponent } from './location/main-view/main-view.component';
-import { AgmCoreModule } from '@agm/core';
-import { AgmDirectionModule } from 'agm-direction';
-import { GetCurrentLocation, FilterPipe, AuthService } from './global';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { environment } from '../environments/environment';
-import { LoginComponent } from './location/login/login.component';
+import {AppComponent} from './app.component';
+import {AppRoutes} from './routes';
+import {AddLocationComponent} from './location/add-location/add-location.component';
+import {MainViewComponent} from './location/main-view/main-view.component';
+import {AgmCoreModule} from '@agm/core';
+import {AgmDirectionModule} from 'agm-direction';
+import {GetCurrentLocation, FilterPipe, AuthService} from './global';
+import {AngularFireModule} from 'angularfire2';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+import {environment} from '../environments/environment';
+import {LoginComponent} from './location/login/login.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,13 @@ import { LoginComponent } from './location/login/login.component';
     ReactiveFormsModule,
     AgmDirectionModule
   ],
-  providers: [GetCurrentLocation, AuthService],
+  providers: [GetCurrentLocation, AuthService, {
+    provide: 'WINDOW', useFactory: getWindow
+  }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
+
+export function getWindow() {
+  return typeof window !== 'undefined' ? window : null;
+}
