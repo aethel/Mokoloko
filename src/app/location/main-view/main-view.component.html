@@ -1,7 +1,7 @@
 <section class="section">
   <div class="cointainer">
     <header class="content">
-      <h1 class="title">Near Me</h1>
+      <h1 class="title  is-loading">Near Me</h1>
     </header>
     <nav class="navbar"
          role="navigation"
@@ -17,7 +17,10 @@
       </div>
     </nav>
     <div class="box">
-      <agm-map [latitude]="lat"
+      <div *ngIf="!lat && !lng"
+           class="loader"></div>
+      <agm-map *ngIf="lat && lng"
+               [latitude]="lat"
                [zoom]="zoom"
                [longitude]="lng"
                [scrollwheel]="false">
