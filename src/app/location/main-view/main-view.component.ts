@@ -1,9 +1,10 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {GetCurrentLocation, APPCONFIG} from '../../global';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from '../../global/auth.service';
 import {Coordinates, Location} from '../../global/models';
+import { AgmMap } from '@agm/core';
 
 @Component({
   selector: 'app-main-view',
@@ -23,13 +24,14 @@ export class MainViewComponent implements OnInit, OnDestroy {
   public travelMode: string;
   public show = false;
   items: Observable<any[]>;
+  @ViewChild(AgmMap) private map: any;
 
   constructor(
     private locationService: GetCurrentLocation,
     private db: AngularFirestore,
     private authService: AuthService
   ) {
-    this.items = db.collection(APPCONFIG.collection).valueChanges();
+    this.items = this.db.collection(APPCONFIG.collection).valueChanges();
   }
 
   async ngOnInit() {
@@ -77,20 +79,19 @@ export class MainViewComponent implements OnInit, OnDestroy {
         lng: targetLon
       }
     };
+    console.log(this.zoom);
     this.toggleShow();
   }
 
   public hideDirections() {
-    this.setLocation(this.currentLat, this.currentLon);
+    this.toggleShow();
+    this.map.triggerResize().then(() => {
+      this.map._mapsWrapper.setCenter({lat: this.currentLat, lng: this.currentLon});
+      this.map._mapsWrapper.setZoom(APPCONFIG.defaultZoom);
+    });
   }
 
   ngOnDestroy() {
     console.log('destroying');
   }
-}
-
-interface ILocation {
-  lat: number;
-  lng: number;
-  head?: number;
 }
