@@ -1,7 +1,22 @@
-<input type="text" [(ngModel)]="email" placeholder="email">
-<input type="password" [(ngModel)]="password" placeholder="pass">
-
-<p>
-  login works!
-  <button (click)="login()">Signin</button>
-</p>
+<div class="panel column">
+  <header>
+    <h1 class="panel-heading">Near Me</h1>
+  </header>
+  <div class="panel-block">
+    <ol class="content">
+      <li class="field">
+        <label class="Label">
+          <input autofocus required type="text" [(ngModel)]="email" placeholder="Email" class="input">
+        </label>
+      </li>
+      <li class="field">
+        <label class="Label">
+          <input required required type="password" [(ngModel)]="password" placeholder="Password" class="input">
+        </label>
+      </li>
+      <li class="control">
+        <button class="button is-info" (click)="login()">Sign In</button>
+      </li>
+    </ol>
+  </div>
+</div>
