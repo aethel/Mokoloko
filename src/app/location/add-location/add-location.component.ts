@@ -4,7 +4,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { GetCurrentLocation, APPCONFIG } from '../../global';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Coordinates, Location } from '../../global/models'
+import { Coordinates, Location } from '../../global/models';
 
 @Component({
   selector: 'app-add-location',
@@ -62,7 +62,7 @@ export class AddLocationComponent implements OnInit {
         .doc(place)
         .set(values)
         .then(result => {
-          console.log('saved successfully')
+          console.log('saved successfully');
           this.router.navigate(['mainView']);
         })
         .catch(error => console.log(error));
